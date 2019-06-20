@@ -24,8 +24,9 @@ class NewsListPresenter(
         getArticles(page)
     }
 
-    override fun onArticleClicked() {
-        view.goToSingleArticle()
+    override fun onArticleClicked(articleId: String) {
+        val clickedArticle = articlesList.first { it.publishedAt == articleId } // we are using published at as an ID
+        view.goToSingleArticle(clickedArticle)
     }
 
     override fun getArticles(page: Int) {

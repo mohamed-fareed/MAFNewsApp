@@ -1,11 +1,16 @@
 package com.maf.news.presentation.screens.newsList
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.maf.news.R
+import com.maf.news.data.models.Article
 import com.maf.news.presentation.screens.base.BaseActivity
+import com.maf.news.presentation.screens.details.ArticleDetailsActivity
+import com.maf.news.presentation.screens.details.ArticleDetailsActivity.Companion.EXTRAS_ARTICLE
 import com.maf.news.presentation.utils.EndlessRecyclerViewScrollListener
 import com.maf.news.presentation.views.models.ArticleViewModel
 import kotlinx.android.synthetic.main.activity_news_list.*
@@ -72,8 +77,10 @@ class NewsListActivity : BaseActivity(), NewsListContract.View,
         )
     }
 
-    override fun goToSingleArticle() {
-
+    override fun goToSingleArticle(article: Article) {
+        val intent = Intent(this, ArticleDetailsActivity::class.java)
+            .putExtra(Gson().toJson(article), EXTRAS_ARTICLE)
+        startActivity(intent)
     }
 
     override fun onArticleClicked(id: String) {
