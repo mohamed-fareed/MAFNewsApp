@@ -79,7 +79,7 @@ class NewsListActivity : BaseActivity(), NewsListContract.View,
 
     override fun goToSingleArticle(article: Article) {
         val intent = Intent(this, ArticleDetailsActivity::class.java)
-            .putExtra(Gson().toJson(article), EXTRAS_ARTICLE)
+            .putExtra(EXTRAS_ARTICLE, Gson().toJson(article))
         startActivity(intent)
     }
 
