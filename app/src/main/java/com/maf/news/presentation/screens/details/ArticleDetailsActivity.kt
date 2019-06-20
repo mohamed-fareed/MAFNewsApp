@@ -14,9 +14,11 @@ class ArticleDetailsActivity : BaseActivity(), ArticleDetailsContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article_details)
 
+        // getting passed article model
         val articleString = intent.getStringExtra(EXTRAS_ARTICLE)
         val article = Gson().fromJson(articleString, Article::class.java)
 
+        // initiate presenter
         presenter = ArticleDetailsPresenter(this)
         (presenter as ArticleDetailsPresenter).start(article)
     }
