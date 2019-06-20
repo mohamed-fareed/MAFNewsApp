@@ -11,5 +11,7 @@ interface NewsListContract {
         fun start()
 
         fun onArticleClicked()
+
+        fun onDestroy()
     }
 }
