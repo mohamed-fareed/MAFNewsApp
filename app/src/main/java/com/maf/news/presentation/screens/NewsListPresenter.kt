@@ -1,6 +1,7 @@
 package com.maf.news.presentation.screens
 
 import com.maf.news.data.models.Article
+import com.maf.news.domain.engine.LazySchedulers
 import com.maf.news.domain.usecases.GetTopHeadlines
 import com.maf.news.presentation.views.models.ArticleViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,6 +10,7 @@ import io.reactivex.schedulers.Schedulers
 
 class NewsListPresenter(
     private val view: NewsListContract.View,
+    private val lazySchedulers: LazySchedulers = LazySchedulers(),
     private val getTopHeadlinesUseCase: GetTopHeadlines = GetTopHeadlines()
 ) : NewsListContract.Presenter {
 
@@ -32,18 +34,20 @@ class NewsListPresenter(
         disposables.dispose()
     }
 
-    private fun getArticles(page: Int) {
+    override fun getArticles(page: Int) {
         getTopHeadlinesUseCase.apply(page)
             .takeUnless { view.isLoading() }
             ?.also { view.startLoading() }
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(lazySchedulers.io())
+            ?.observeOn(lazySchedulers.main())
             ?.subscribe({
                 articlesList += it
 
                 view.stopLoading()
                 view.addArticles(mapArticlesToViewModels(articlesList))
-            }, {})
+            }, {
+                view.showFailedToGetFeed()
+            })
             ?.let(disposables::add)
     }
 

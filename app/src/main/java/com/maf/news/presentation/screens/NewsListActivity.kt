@@ -2,6 +2,7 @@ package com.maf.news.presentation.screens
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.maf.news.R
@@ -79,6 +80,9 @@ class NewsListActivity : AppCompatActivity(), NewsListContract.View, NewsListCon
     override fun onArticleClicked(id: String) {
         presenter.onArticleClicked()
     }
+
+    override fun showFailedToGetFeed() =
+        Toast.makeText(this, getString(R.string.error_load_feed), Toast.LENGTH_LONG).show()
 
     override fun onDestroy() {
         super.onDestroy()

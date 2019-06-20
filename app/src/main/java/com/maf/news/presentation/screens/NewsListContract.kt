@@ -15,10 +15,14 @@ interface NewsListContract {
         fun addArticles(articleList: List<ArticleViewModel>)
 
         fun goToSingleArticle()
+
+        fun showFailedToGetFeed()
     }
 
     interface Presenter {
         fun start()
+
+        fun getArticles(page: Int)
 
         fun onLoadMoreTriggered(page: Int)
 

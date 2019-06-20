@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MAF News</string>
+    <string name="error_load_feed">Failed to get feed</string>
 </resources>
