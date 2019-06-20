@@ -14,6 +14,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/img_article"
                 android:layout_width="0dp"
+                android:scaleType="centerCrop"
                 android:layout_height="@dimen/article_image_large_height"
                 app:layout_constraintStart_toStartOf="parent"
                 android:src="@color/colorPrimary"
