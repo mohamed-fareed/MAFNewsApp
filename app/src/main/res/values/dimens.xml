@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_margin">16dp</dimen>
+    <dimen name="layout_small_margin">8dp</dimen>
+    <dimen name="font_normal">12sp</dimen>
+    <dimen name="font_title">24sp</dimen>
+    <dimen name="font_small_title">16sp</dimen>
+    <dimen name="article_image_small">150dp</dimen>
+    <dimen name="article_image_large_height">250dp</dimen>
+</resources>
