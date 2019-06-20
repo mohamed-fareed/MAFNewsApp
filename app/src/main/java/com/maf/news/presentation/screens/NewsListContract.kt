@@ -8,6 +8,8 @@ interface NewsListContract {
 
         fun stopLoading()
 
+        fun isLoading(): Boolean
+
         fun initViews()
 
         fun addArticles(articleList: List<ArticleViewModel>)

@@ -13,6 +13,7 @@ class NewsListPresenter(
 ) : NewsListContract.Presenter {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
+    private var articlesList: List<Article> = listOf()
 
     override fun start() {
         view.initViews()
@@ -33,18 +34,21 @@ class NewsListPresenter(
 
     private fun getArticles(page: Int) {
         getTopHeadlinesUseCase.apply(page)
-            .also { view.startLoading() }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+            .takeUnless { view.isLoading() }
+            ?.also { view.startLoading() }
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe({
+                articlesList += it
+
                 view.stopLoading()
-                view.addArticles(mapArticlesToViewModels(it))
+                view.addArticles(mapArticlesToViewModels(articlesList))
             }, {})
-            .let(disposables::add)
+            ?.let(disposables::add)
     }
 
     private fun mapArticlesToViewModels(articles: List<Article>) =
         articles.map {
-            ArticleViewModel(it.title, it.title, it.description, it.urlToImage, it.publishedAt)
+            ArticleViewModel(it.publishedAt, it.title, it.description, it.urlToImage, it.publishedAt)
         }
 }

@@ -6,7 +6,7 @@ package com.maf.news.presentation.views.models
 data class ArticleViewModel(
     val id: String,
     val title: String,
-    val description: String,
-    val imageUrl: String,
+    val description: String?,
+    val imageUrl: String?,
     val date: String
 )

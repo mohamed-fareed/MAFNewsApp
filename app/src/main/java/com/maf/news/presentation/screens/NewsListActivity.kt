@@ -52,6 +52,10 @@ class NewsListActivity : AppCompatActivity(), NewsListContract.View, NewsListCon
         )
     }
 
+    override fun isLoading(): Boolean {
+        return controller.currentData?.isLoading ?: false
+    }
+
     override fun initViews() {
         with(rv_news) {
             layoutManager = linearLayoutManager
