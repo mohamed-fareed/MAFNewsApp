@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 
 class NewsListPresenter(
     private val view: NewsListContract.View,
-    private val getTopHeadlinesUseCase: GetTopHeadlines
+    private val getTopHeadlinesUseCase: GetTopHeadlines = GetTopHeadlines()
 ) : NewsListContract.Presenter {
 
     private val disposables: CompositeDisposable = CompositeDisposable()

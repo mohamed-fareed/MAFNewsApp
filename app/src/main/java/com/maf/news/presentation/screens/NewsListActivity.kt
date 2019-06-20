@@ -27,7 +27,7 @@ class NewsListActivity : AppCompatActivity(), NewsListContract.View, NewsListCon
 
     override fun initViews() {
         with(rv_news) {
-            layoutManager = LinearLayoutManager(this)
+            layoutManager = LinearLayoutManager(this.context)
             adapter = controller.adapter
         }
     }
