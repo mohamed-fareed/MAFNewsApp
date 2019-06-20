@@ -12,6 +12,7 @@
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintTop_toTopOf="parent"
                android:src="@color/colorPrimaryDark"
+               android:scaleType="centerCrop"
                app:layout_constraintEnd_toEndOf="parent"
                android:layout_height="@dimen/article_image_large_height"/>
 
@@ -23,6 +24,7 @@
             android:textSize="@dimen/font_title"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/layout_margin"
+            android:maxLines="3"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toTopOf="@id/tv_article_date"
             android:layout_height="wrap_content"/>
