@@ -84,7 +84,7 @@ class NewsListActivity : BaseActivity(), NewsListContract.View,
     }
 
     override fun onArticleClicked(id: String) {
-        (presenter as NewsListPresenter).onArticleClicked()
+        (presenter as NewsListPresenter).onArticleClicked(id)
     }
 
     override fun showFailedToGetFeed() =
