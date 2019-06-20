@@ -3,7 +3,9 @@ package com.maf.news.presentation.screens
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.maf.news.R
+import com.maf.news.presentation.utils.EndlessRecyclerViewScrollListener
 import com.maf.news.presentation.views.models.ArticleViewModel
 import kotlinx.android.synthetic.main.activity_news_list.*
 
@@ -16,6 +18,14 @@ class NewsListActivity : AppCompatActivity(), NewsListContract.View, NewsListCon
             .also {
                 it.setData(NewsListController.NewsListState())
             }
+    }
+
+    private val linearLayoutManager = LinearLayoutManager(this)
+
+    private val endlessScrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
+        override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+            presenter.onLoadMoreTriggered(page)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +54,9 @@ class NewsListActivity : AppCompatActivity(), NewsListContract.View, NewsListCon
 
     override fun initViews() {
         with(rv_news) {
-            layoutManager = LinearLayoutManager(this.context)
+            layoutManager = linearLayoutManager
             adapter = controller.adapter
+            addOnScrollListener(endlessScrollListener)
         }
     }
 

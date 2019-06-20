@@ -18,6 +18,8 @@ interface NewsListContract {
     interface Presenter {
         fun start()
 
+        fun onLoadMoreTriggered(page: Int)
+
         fun onArticleClicked()
 
         fun onDestroy()

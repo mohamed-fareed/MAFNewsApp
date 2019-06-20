@@ -16,20 +16,11 @@ class NewsListPresenter(
 
     override fun start() {
         view.initViews()
-
-        getArticles()
+        getArticles(1)
     }
 
-    private fun getArticles() {
-        getTopHeadlinesUseCase.apply(1)
-            .also { view.startLoading() }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                view.stopLoading()
-                view.addArticles(mapArticlesToViewModels(it))
-            }, {})
-            .let(disposables::add)
+    override fun onLoadMoreTriggered(page: Int) {
+        getArticles(page)
     }
 
     override fun onArticleClicked() {
@@ -38,6 +29,18 @@ class NewsListPresenter(
 
     override fun onDestroy() {
         disposables.dispose()
+    }
+
+    private fun getArticles(page: Int) {
+        getTopHeadlinesUseCase.apply(page)
+            .also { view.startLoading() }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                view.stopLoading()
+                view.addArticles(mapArticlesToViewModels(it))
+            }, {})
+            .let(disposables::add)
     }
 
     private fun mapArticlesToViewModels(articles: List<Article>) =
