@@ -1,19 +1,17 @@
 package com.maf.news.presentation.screens.newsList
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.maf.news.R
+import com.maf.news.presentation.screens.base.BaseActivity
 import com.maf.news.presentation.utils.EndlessRecyclerViewScrollListener
 import com.maf.news.presentation.views.models.ArticleViewModel
 import kotlinx.android.synthetic.main.activity_news_list.*
 
-class NewsListActivity : AppCompatActivity(), NewsListContract.View,
+class NewsListActivity : BaseActivity(), NewsListContract.View,
     NewsListController.Listener {
-
-    private lateinit var presenter: NewsListPresenter
 
     private val controller: NewsListController by lazy {
         NewsListController(this)
@@ -26,7 +24,7 @@ class NewsListActivity : AppCompatActivity(), NewsListContract.View,
 
     private val endlessScrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
         override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-            presenter.onLoadMoreTriggered(page)
+            (presenter as NewsListPresenter).onLoadMoreTriggered(page)
         }
     }
 
@@ -35,7 +33,7 @@ class NewsListActivity : AppCompatActivity(), NewsListContract.View,
         setContentView(R.layout.activity_news_list)
 
         presenter = NewsListPresenter(this)
-        presenter.start()
+        (presenter as NewsListPresenter).start()
     }
 
     override fun startLoading() {
@@ -79,14 +77,9 @@ class NewsListActivity : AppCompatActivity(), NewsListContract.View,
     }
 
     override fun onArticleClicked(id: String) {
-        presenter.onArticleClicked()
+        (presenter as NewsListPresenter).onArticleClicked()
     }
 
     override fun showFailedToGetFeed() =
         Toast.makeText(this, getString(R.string.error_load_feed), Toast.LENGTH_LONG).show()
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDestroy()
-    }
 }

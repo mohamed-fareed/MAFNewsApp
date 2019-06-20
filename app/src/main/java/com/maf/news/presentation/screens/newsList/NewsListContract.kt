@@ -1,16 +1,15 @@
 package com.maf.news.presentation.screens.newsList
 
+import com.maf.news.presentation.screens.base.BaseContract
 import com.maf.news.presentation.views.models.ArticleViewModel
 
 interface NewsListContract {
-    interface View {
+    interface View : BaseContract.View {
         fun startLoading()
 
         fun stopLoading()
 
         fun isLoading(): Boolean
-
-        fun initViews()
 
         fun addArticles(articleList: List<ArticleViewModel>)
 
@@ -19,7 +18,7 @@ interface NewsListContract {
         fun showFailedToGetFeed()
     }
 
-    interface Presenter {
+    interface Presenter : BaseContract.Presenter {
         fun start()
 
         fun getArticles(page: Int)
@@ -27,7 +26,5 @@ interface NewsListContract {
         fun onLoadMoreTriggered(page: Int)
 
         fun onArticleClicked()
-
-        fun onDestroy()
     }
 }

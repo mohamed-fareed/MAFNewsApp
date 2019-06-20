@@ -3,6 +3,7 @@ package com.maf.news.presentation.screens.newsList
 import com.maf.news.data.models.Article
 import com.maf.news.domain.engine.LazySchedulers
 import com.maf.news.domain.usecases.GetTopHeadlines
+import com.maf.news.presentation.screens.base.BasePresenter
 import com.maf.news.presentation.views.models.ArticleViewModel
 import io.reactivex.disposables.CompositeDisposable
 
@@ -10,9 +11,8 @@ class NewsListPresenter(
     private val view: NewsListContract.View,
     private val lazySchedulers: LazySchedulers = LazySchedulers(),
     private val getTopHeadlinesUseCase: GetTopHeadlines = GetTopHeadlines()
-) : NewsListContract.Presenter {
+) : BasePresenter(), NewsListContract.Presenter {
 
-    private val disposables: CompositeDisposable = CompositeDisposable()
     private var articlesList: List<Article> = listOf()
 
     override fun start() {
@@ -26,10 +26,6 @@ class NewsListPresenter(
 
     override fun onArticleClicked() {
         view.goToSingleArticle()
-    }
-
-    override fun onDestroy() {
-        disposables.dispose()
     }
 
     override fun getArticles(page: Int) {
