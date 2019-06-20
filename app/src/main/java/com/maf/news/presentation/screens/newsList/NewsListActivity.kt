@@ -1,4 +1,4 @@
-package com.maf.news.presentation.screens
+package com.maf.news.presentation.screens.newsList
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +10,8 @@ import com.maf.news.presentation.utils.EndlessRecyclerViewScrollListener
 import com.maf.news.presentation.views.models.ArticleViewModel
 import kotlinx.android.synthetic.main.activity_news_list.*
 
-class NewsListActivity : AppCompatActivity(), NewsListContract.View, NewsListController.Listener {
+class NewsListActivity : AppCompatActivity(), NewsListContract.View,
+    NewsListController.Listener {
 
     private lateinit var presenter: NewsListPresenter
 

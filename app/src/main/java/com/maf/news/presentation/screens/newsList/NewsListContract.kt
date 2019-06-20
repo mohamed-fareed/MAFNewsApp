@@ -1,4 +1,4 @@
-package com.maf.news.presentation.screens
+package com.maf.news.presentation.screens.newsList
 
 import com.maf.news.presentation.views.models.ArticleViewModel
 

@@ -1,4 +1,4 @@
-package com.maf.news.presentation.screens
+package com.maf.news.presentation.screens.newsList
 
 import android.view.View
 import com.airbnb.epoxy.TypedEpoxyController
